@@ -1,0 +1,40 @@
+{% extends 'layouts/base_auth.html' %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block body %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                    <div class="card-header">
+                        <div class="form-group mb-3">
+                            <label>Username</label>
+                            <input class="form-control" name="username" type="text">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Email</label>
+                            <input class="form-control" name="email" type="email">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Password</label>
+                            <input class="form-control" name="password" type="password">
+                        </div>
+                        <input type="submit" class="btn btn-sm col-12 btn-primary" value="REGISTER">
+                    </div>
+                    <div class="card-body"></div>
+                </form>
+                {% if email %}
+                {{ email }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock %}
