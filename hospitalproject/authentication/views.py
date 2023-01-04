@@ -1,11 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.models import User
+from django.contrib import auth
 
 # Create your views here.
 class LoginView(View):
     def get(self, request):
         return render(request, 'authentication/login.html')
+    
+    def post(self, request):
+        req_username = request.POST.get('username')
+        req_password = request.POST.get('password')
+
+        if req_username and req_password:
+            user = auth.authenticate(username=req_username, password=req_password)
+            if user:
+                auth.login(request, user)
+                return redirect('hospitals')
+            return redirect('login')
+        return redirect('login')
 
 class RegisterView(View):
     def get(self, request):
