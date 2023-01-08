@@ -1,14 +1,14 @@
 {% extends 'layouts/base.html' %}
 
 {% block title %}
-Hospital
+Category
 {% endblock %}
 
 {% block body %}
-<h1>Add Hospital</h1>
+<h1>Add Category</h1>
 <hr>
 
-<form action="{% url 'hospital.create' %}" method="post"> 
+<form action="{% url 'category.create' %}" method="post"> 
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" class="btn btn-primary col-12" value="ADD">

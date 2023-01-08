@@ -7,6 +7,9 @@ class Category(models.Model):
 
     class Meta:
         db_table = "app_categories"
+    
+    def __str__(self):
+        return self.category
 
 class Hospital(models.Model):
     full_name = models.CharField(max_length=255)
