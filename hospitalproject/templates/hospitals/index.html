@@ -5,5 +5,38 @@ Hospital
 {% endblock %}
 
 {% block body %}
-<h1>Welcome to HMS</h1>
+<div class="container mt-5">
+    {% include 'partials/_message.html' %}
+    <div class="card">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Full Name</th>
+                    <th>Short Name</th>
+                    <th>Category</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Add Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for val in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ val.full_name }}</td>
+                    <td>{{ val.short_name }}</td>
+                    <td>{{ val.category }}</td>
+                    <td>{{ val.contact }}</td>
+                    <td>{{ val.address }}</td>
+                    <td>{{ val.added_at }}</td>
+                    <td><a href="{% url 'hospital.edit' val.id %}">Edit</a></td>
+                    <td><a href="{% url 'hospital.delete' val.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
