@@ -32,8 +32,24 @@ def hospital_index(request):
 @login_required(login_url='/authentication/login')
 def hospital_edit(request, id):
     data_edit = Hospital.objects.get(id=id)
-    context = {"data": data_edit}
+    categories = Category.objects.all()
+    context = {"data": data_edit, "categories": categories}
     return render(request, 'hospitals/edit_hospital.html', context)
+
+@login_required(login_url='/authentication/logout')
+def hospital_update(request):
+    if request.method == "POST":
+        hospital_obj = Hospital.objects.get(id=request.POST.get('id'))
+        category = Category.objects.get(id=request.POST.get('category'))
+        hospital_obj.full_name = request.POST.get('full_name')
+        hospital_obj.short_name = request.POST.get('short_name')
+        hospital_obj.address = request.POST.get('address')
+        hospital_obj.contact = request.POST.get('contact')
+        hospital_obj.category_id = category
+        hospital_obj.save()
+        messages.success(request, 'Data updated successfully')
+        return redirect("hospitals")
+    return redirect("hospitals")
 
 @login_required(login_url='/authentication/login')
 def hospital_delete(request, id):

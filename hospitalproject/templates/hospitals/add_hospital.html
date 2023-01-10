@@ -6,12 +6,12 @@ Hospital
 
 {% block body %}
 <div class="container mt-5">
+    <a href="{% url 'hospitals' %}" class="btn btn-primary mb-2">BACK</a>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <h1>Add Hospital</h1>
             <hr>
-
             <form action="{% url 'hospital.create' %}" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
