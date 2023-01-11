@@ -27,6 +27,12 @@ def category_create(request):
 def hospital_index(request):
     hospital_list = Hospital.objects.all()
     context = {"data": hospital_list}
+    if request.method == "POST":
+        if not request.POST.get('searchText'):
+            return redirect("hospitals")
+        filter_data = Hospital.objects.filter(short_name=request.POST.get('searchText'))
+        context.update({"filter_data": filter_data, "data": filter_data})
+        return render(request, 'hospitals/index.html', context)
     return render(request, 'hospitals/index.html', context)
 
 @login_required(login_url='/authentication/login')

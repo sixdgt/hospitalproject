@@ -21,6 +21,12 @@ class LoginView(View):
             return redirect('login')
         return redirect('login')
 
+class LogoutView(View):
+    def post(self, request):
+        auth.logout
+        messages.success(request, "You're logged out")
+        return redirect("login")
+
 class RegisterView(View):
     def get(self, request):
         return render(request, 'authentication/register.html')

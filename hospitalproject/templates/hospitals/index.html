@@ -5,13 +5,14 @@ Hospital
 {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     {% include 'partials/_message.html' %}
     <a href="{% url 'hospital.create' %}" class="btn btn-primary mb-2">ADD NEW HOSPITAL</a>
     <div class="row">
         <div class="col-md-10">
-            <form class="d-flex mb-3">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex mb-3" action="{% url 'hospitals' %}" method="post">
+                {% csrf_token %}
+                <input class="form-control me-2" name="searchText" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <div class="card">
@@ -47,7 +48,31 @@ Hospital
             </div>
         </div>
         <div class="col-mnd-2">
-            Filter Data
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                Filtered Data by Short Name
+                </button>
+                {% if filter_data %}
+                    {% for val in filter_data %}
+                    <form class="d-flex mb-3" action="{% url 'hospitals' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="searchText" value="{{ val.short_name }}">
+                        <button class="btn btn-outline-success" type="submit">{{ val.short_name }}</button>
+                    </form>
+                    <a href="{% url 'hospitals' %}">Clear</a>
+                    {% endfor %}
+                {% else %}
+                
+                {% for val in data %}
+
+                <form class="d-flex mb-3" action="{% url 'hospitals' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="searchText" value="{{ val.short_name }}">
+                    <button class="btn btn-outline-success" type="submit">{{ val.short_name }}</button>
+                </form>
+                {% endfor %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
