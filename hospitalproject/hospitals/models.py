@@ -21,3 +21,6 @@ class Hospital(models.Model):
 
     class Meta:
         db_table = "app_hospitals"
+    
+    def __str__(self):
+        return self.short_name
