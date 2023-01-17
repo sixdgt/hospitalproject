@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hospitals',
     'authentication',
+    'hospitalapi',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+
+# email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'c4crypt@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

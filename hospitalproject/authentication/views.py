@@ -3,6 +3,7 @@ from django.views import View
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
+from django.core.mail import send_mail
 
 # Create your views here.
 class LoginView(View):
@@ -46,6 +47,14 @@ class RegisterView(View):
                 user.is_staff = False
                 user.is_superuser = False
                 user.save()
+
+                send_mail(
+                    'Account Creation', # subject
+                    'Congratulations! Your account has been created.', # message
+                    'c4crypt@gmail.com', # sender
+                    [user.email] # receiver
+                )
+
                 return render(request, 'authentication/register.html')
             messages.error(request, 'Email already taken, try another!!')
             return render(request, 'authentication/register.html')
